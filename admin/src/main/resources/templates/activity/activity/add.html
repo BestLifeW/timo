@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<body>
+    <div class="layui-form timo-compile">
+    <form th:action="@{/activity/activity/add}">
+        <input type="hidden" name="id" th:if="${activity}" th:value="${activity.id}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="remarks" placeholder="请输入备注" th:value="${activity?.remarks}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">标题</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="caption" placeholder="请输入标题" th:value="${activity?.caption}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">内容</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="content" placeholder="请输入内容" th:value="${activity?.content}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">开始时间</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="startDate" placeholder="请输入开始时间" th:value="${activity?.startDate}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">结束时间</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="endDate" placeholder="请输入结束时间" th:value="${activity?.endDate}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否发布</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="isPublish" placeholder="请输入是否发布" th:value="${activity?.isPublish}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否删除</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="isDeleted" placeholder="请输入是否删除" th:value="${activity?.isDeleted}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">上传图片</label>
+            <div class="layui-input-inline">
+                <button type="button" class="layui-btn upload-image" name="photoUrl" th:value="${activity?.photoUrl}" up-field="path" up-url="/upload/image">
+                    <i class="layui-icon"></i>上传图片
+                </button>
+            </div>
+            <div class="upload-show"><img th:src="${activity?.photoUrl}"  name="photoUrl" th:value="${activity?.photoUrl}" width="200"></div>
+        </div>
+        <div class="layui-form-item timo-finally">
+            <button class="layui-btn ajax-submit"><i class="fa fa-check-circle"></i> 保存</button>
+            <button class="layui-btn btn-secondary close-popup"><i class="fa fa-times-circle"></i> 关闭</button>
+        </div>
+    </form>
+</div>
+<script th:replace="/common/template :: script"></script>
+</body>
+</html>

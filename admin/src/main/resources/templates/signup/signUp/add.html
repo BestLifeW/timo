@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<body>
+    <div class="layui-form timo-compile">
+    <form th:action="@{/signup/signUp/add}">
+        <input type="hidden" name="id" th:if="${signUp}" th:value="${signUp.id}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">OpenId</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="openId" placeholder="请输入OpenId" th:value="${signUp?.openId}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">活动ID</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="activityId" placeholder="请输入活动ID" th:value="${signUp?.activityId}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户ID</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="userId" placeholder="请输入用户ID" th:value="${signUp?.userId}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否删除</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="isDeleted" placeholder="请输入是否删除" th:value="${signUp?.isDeleted}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="remarks" placeholder="请输入备注" th:value="${signUp?.remarks}">
+            </div>
+        </div>
+        <div class="layui-form-item timo-finally">
+            <button class="layui-btn ajax-submit"><i class="fa fa-check-circle"></i> 保存</button>
+            <button class="layui-btn btn-secondary close-popup"><i class="fa fa-times-circle"></i> 关闭</button>
+        </div>
+    </form>
+</div>
+<script th:replace="/common/template :: script"></script>
+</body>
+</html>

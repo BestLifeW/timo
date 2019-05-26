@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<body>
+    <div class="timo-detail-page">
+        <div class="timo-detail-title">基本信息</div>
+        <table class="layui-table timo-detail-table">
+            <colgroup>
+                <col width="100px"><col>
+                <col width="100px"><col>
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th>主键ID</th>
+                    <td th:text="${signUp.id}"></td>
+                    <th>OpenId</th>
+                    <td th:text="${signUp.openId}"></td>
+                </tr>
+                <tr>
+                    <th>活动ID</th>
+                    <td th:text="${signUp.activityId}"></td>
+                    <th>用户ID</th>
+                    <td th:text="${signUp.userId}"></td>
+                </tr>
+                <tr>
+                    <th>是否删除</th>
+                    <td th:text="${signUp.isDeleted}"></td>
+                    <th>备注</th>
+                    <td th:text="${signUp.remarks}"></td>
+                </tr>
+                <tr>
+                    <th>创建时间</th>
+                    <td th:text="${#dates.format(signUp.createDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <th>更新时间</th>
+                    <td th:text="${#dates.format(signUp.updateDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<script th:replace="/common/template :: script"></script>
+</body>
+</html>

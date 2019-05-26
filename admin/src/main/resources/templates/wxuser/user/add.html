@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<body>
+    <div class="layui-form timo-compile">
+    <form th:action="@{/wxuser/user/add}">
+        <input type="hidden" name="id" th:if="${user}" th:value="${user.id}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">手机号码</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="userPhone" placeholder="请输入手机号码" th:value="${user?.userPhone}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">OpenId</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="openId" placeholder="请输入OpenId" th:value="${user?.openId}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户头像</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="userHeadUrl" placeholder="请输入用户头像" th:value="${user?.userHeadUrl}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否删除</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="isDeleted" placeholder="请输入是否删除" th:value="${user?.isDeleted}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="remarks" placeholder="请输入备注" th:value="${user?.remarks}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">昵称</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="nickName" placeholder="请输入昵称" th:value="${user?.nickName}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="sex" placeholder="请输入性别" th:value="${user?.sex}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">国家</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="country" placeholder="请输入国家" th:value="${user?.country}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">省份</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="province" placeholder="请输入省份" th:value="${user?.province}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">城市</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="city" placeholder="请输入城市" th:value="${user?.city}">
+            </div>
+        </div>
+        <div class="layui-form-item timo-finally">
+            <button class="layui-btn ajax-submit"><i class="fa fa-check-circle"></i> 保存</button>
+            <button class="layui-btn btn-secondary close-popup"><i class="fa fa-times-circle"></i> 关闭</button>
+        </div>
+    </form>
+</div>
+<script th:replace="/common/template :: script"></script>
+</body>
+</html>

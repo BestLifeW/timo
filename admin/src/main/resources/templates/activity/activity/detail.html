@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<body>
+    <div class="timo-detail-page">
+        <div class="timo-detail-title">基本信息</div>
+        <table class="layui-table timo-detail-table">
+            <colgroup>
+                <col width="100px"><col>
+                <col width="100px"><col>
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th>主键ID</th>
+                    <td th:text="${activity.id}"></td>
+                    <th>备注</th>
+                    <td th:text="${activity.remarks}"></td>
+                </tr>
+                <tr>
+                    <th>创建时间</th>
+                    <td th:text="${activity.createDate}"></td>
+                    <th>更新时间</th>
+                    <td th:text="${activity.gmtModified}"></td>
+                </tr>
+                <tr>
+                    <th>标题</th>
+                    <td th:text="${activity.caption}"></td>
+                    <th>内容</th>
+                    <td th:text="${activity.content}"></td>
+                </tr>
+                <tr>
+                    <th>开始时间</th>
+                    <td th:text="${activity.startDate}"></td>
+                    <th>结束时间</th>
+                    <td th:text="${activity.endDate}"></td>
+                </tr>
+                <tr>
+                    <th>是否发布</th>
+                    <td th:text="${activity.isPublish}"></td>
+                    <th>是否删除</th>
+                    <td th:text="${activity.isDeleted}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<script th:replace="/common/template :: script"></script>
+</body>
+</html>
