@@ -51,7 +51,7 @@ wx:
   config:
     APPID: wx15afc1a4f274f15c
     APPSECRECT: 3953701699cbbe6694209a205f1f5276
-    GRANTTYPE:
+    GRANTTYPE:123
 
 
 
