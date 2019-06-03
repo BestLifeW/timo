@@ -5,7 +5,7 @@ import com.linln.common.utils.ResultVoUtil;
 import com.linln.common.vo.ResultVo;
 import com.linln.modules.signup.domain.SignUp;
 import com.linln.modules.signup.service.SignUpService;
-import com.linln.modules.wxuser.domain.WxUser;
+import com.linln.modules.wxuser.domain.TUser;
 import com.linln.modules.wxuser.service.WxUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,11 +35,11 @@ public class AppSignUpController {
         if (count>0){
             return ResultVoUtil.error(500,"已经报名");
         }else{
-            WxUser wxUserByOpenId = wxUserService.getWxUserByOpenId(openId);
-            if (wxUserByOpenId==null){
+            TUser tUserByOpenId = wxUserService.getWxUserByOpenId(openId);
+            if (tUserByOpenId ==null){
                 return ResultVoUtil.error(500,"用户不存在");
             }
-            signUpService.save(SignUp.builder().activityId(activityId).status(StatusEnum.OK.getCode()).openId(openId).userId(wxUserByOpenId.getId()).build());
+            signUpService.save(SignUp.builder().activityId(activityId).status(StatusEnum.OK.getCode()).openId(openId).userId(tUserByOpenId.getId()).build());
             return ResultVoUtil.success("报名成功");
         }
     }

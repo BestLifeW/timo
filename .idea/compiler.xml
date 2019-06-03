@@ -7,19 +7,19 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="jwt" />
-        <module name="wxuser" />
-        <module name="devtools" />
+        <module name="fileUpload" />
         <module name="activity" />
+        <module name="devtools" />
+        <module name="excel" />
         <module name="ClockIn" />
         <module name="thymeleaf" />
         <module name="shiro" />
         <module name="admin" />
         <module name="signup" />
-        <module name="common" />
         <module name="actionLog" />
+        <module name="wxuser" />
         <module name="system" />
-        <module name="excel" />
-        <module name="fileUpload" />
+        <module name="common" />
       </profile>
     </annotationProcessing>
   </component>

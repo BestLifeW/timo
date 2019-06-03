@@ -2,7 +2,7 @@ package com.linln.modules.wxuser.service.impl;
 
 import com.linln.common.data.PageSort;
 import com.linln.common.enums.StatusEnum;
-import com.linln.modules.wxuser.domain.WxUser;
+import com.linln.modules.wxuser.domain.TUser;
 import com.linln.modules.wxuser.repository.WxUserRepository;
 import com.linln.modules.wxuser.service.WxUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class WxUserServiceImpl implements WxUserService {
      */
     @Override
     @Transactional
-    public WxUser getById(Long id) {
+    public TUser getById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
 
@@ -40,7 +40,7 @@ public class WxUserServiceImpl implements WxUserService {
      * @return 返回分页数据
      */
     @Override
-    public Page<WxUser> getPageList(Example<WxUser> example) {
+    public Page<TUser> getPageList(Example<TUser> example) {
         // 创建分页对象
         PageRequest page = PageSort.pageRequest();
         return userRepository.findAll(example, page);
@@ -51,7 +51,7 @@ public class WxUserServiceImpl implements WxUserService {
      * @param user 实体对象
      */
     @Override
-    public WxUser save(WxUser user) {
+    public TUser save(TUser user) {
         return userRepository.saveAndFlush(user);
     }
 
@@ -70,7 +70,7 @@ public class WxUserServiceImpl implements WxUserService {
     }
 
     @Override
-    public WxUser getWxUserByOpenId(String openId) {
+    public TUser getWxUserByOpenId(String openId) {
         return userRepository.getWxUserByOpenId(openId);
     }
 

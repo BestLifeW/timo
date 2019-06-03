@@ -21,8 +21,10 @@ spring:
     url: jdbc:mysql://47.102.98.229:3306/activity?useSSL=false&characterEncoding=utf-8
     username: root
     password: root
-
-## jpa配置
+    dbcp2:
+      validation-query: SELECT 1
+      time-between-eviction-runs-millis: 18800
+  ## jpa配置
   jpa:
     show-sql: true
     hibernate:

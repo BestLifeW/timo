@@ -1,10 +1,15 @@
 package com.linln.modules.ClockIn.service.impl;
 
 import com.linln.common.data.PageSort;
+import com.linln.common.enums.ClockInEnum;
 import com.linln.common.enums.StatusEnum;
 import com.linln.modules.ClockIn.domain.ClockIn;
+import com.linln.modules.ClockIn.domain.ClockinVO;
 import com.linln.modules.ClockIn.repository.ClockInRepository;
 import com.linln.modules.ClockIn.service.ClockInService;
+import com.linln.modules.activity.domain.Activity;
+import com.linln.modules.activity.repository.ActivityRepository;
+import org.apache.commons.compress.utils.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -24,6 +29,9 @@ public class ClockInServiceImpl implements ClockInService {
     @Autowired
     private ClockInRepository clockInRepository;
 
+
+    @Autowired
+    private ActivityRepository activityRepository;
     /**
      * 根据ID查询数据
      * @param id 主键ID
@@ -70,4 +78,22 @@ public class ClockInServiceImpl implements ClockInService {
         return clockInRepository.findByActivityIdAndOpenIdAndCreateDateBetween(activityId, openId, date + " 00:00:00", date + " 23:59:59");
 
     }
+
+    @Override
+    public List<ClockinVO> getAllByOpenId(String openId) {
+        List<ClockinVO> voList  = Lists.newArrayList();
+        List<ClockIn> clockIns = clockInRepository.getAllByOpenIdOrderByCreateDateDesc(openId);
+        for (ClockIn clockIn : clockIns) {
+            ClockinVO.ClockinVOBuilder builder = ClockinVO.builder();
+            Activity one = activityRepository.getOne(clockIn.getActivityId());
+            builder.activityId(clockIn.getActivityId()).activityName(one.getCaption())
+                    .clocikId(clockIn.getId())
+                    .clockinDate(clockIn.getCreateDate())
+                    .clockUrl(clockIn.getClockInUrl())
+                    .status(ClockInEnum.getStatusNameByStats(clockIn.getClockStatus()).getStatusName());
+            voList.add(builder.build());
+        }
+        return voList;
+    }
+
 }

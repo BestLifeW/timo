@@ -1,7 +1,7 @@
 package com.linln.modules.wxuser.service;
 
 import com.linln.common.enums.StatusEnum;
-import com.linln.modules.wxuser.domain.WxUser;
+import com.linln.modules.wxuser.domain.TUser;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,19 +19,19 @@ public interface WxUserService {
      * @param example 查询实例
      * @return 返回分页数据
      */
-    Page<WxUser> getPageList(Example<WxUser> example);
+    Page<TUser> getPageList(Example<TUser> example);
 
     /**
      * 根据ID查询数据
      * @param id 主键ID
      */
-    WxUser getById(Long id);
+    TUser getById(Long id);
 
     /**
      * 保存数据
      * @param user 实体对象
      */
-    WxUser save(WxUser user);
+    TUser save(TUser user);
 
     /**
      * 状态(启用，冻结，删除)/批量状态处理
@@ -43,6 +43,6 @@ public interface WxUserService {
     Integer countByOpenId(String openId);
 
 
-    WxUser getWxUserByOpenId(String openId);
+    TUser getWxUserByOpenId(String openId);
 
 }

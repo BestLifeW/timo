@@ -25,12 +25,6 @@
                         </div>
                     </div>
                     <div class="layui-inline">
-                        <label class="layui-form-label">OpenId</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="openId" th:value="${param.openId}" placeholder="请输入OpenId" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-inline">
                         <label class="layui-form-label">创建时间</label>
                         <div class="layui-input-block">
                             <input type="text" name="createDate" th:value="${param.createDate}" placeholder="请输入创建时间" autocomplete="off" class="layui-input">
@@ -40,12 +34,6 @@
                         <label class="layui-form-label">更新时间</label>
                         <div class="layui-input-block">
                             <input type="text" name="updateDate" th:value="${param.updateDate}" placeholder="请输入更新时间" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">数据状态</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="status" th:value="${param.status}" placeholder="请输入数据状态" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-inline">
@@ -113,7 +101,6 @@
                         </th>
                         <th>主键ID</th>
                         <th>手机号码</th>
-                        <th>OpenId</th>
                         <th>创建时间</th>
                         <th>更新时间</th>
                         <th>数据状态</th>
@@ -132,7 +119,6 @@
                             <i class="layui-icon layui-icon-ok"></i></label></td>
                         <td th:text="${item.id}">主键ID</td>
                         <td th:text="${item.userPhone}">手机号码</td>
-                        <td th:text="${item.openId}">OpenId</td>
                         <td th:text="${#dates.format(item.createDate, 'yyyy-MM-dd HH:mm:ss')}">创建时间</td>
                         <td th:text="${#dates.format(item.updateDate, 'yyyy-MM-dd HH:mm:ss')}">更新时间</td>
                         <td th:text="${#dicts.dataStatus(item.status)}">数据状态</td>

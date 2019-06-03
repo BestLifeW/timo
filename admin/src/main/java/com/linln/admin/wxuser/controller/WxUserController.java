@@ -6,7 +6,7 @@ import com.linln.common.utils.EntityBeanUtil;
 import com.linln.common.utils.ResultVoUtil;
 import com.linln.common.utils.StatusUtil;
 import com.linln.common.vo.ResultVo;
-import com.linln.modules.wxuser.domain.WxUser;
+import com.linln.modules.wxuser.domain.TUser;
 import com.linln.modules.wxuser.service.WxUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,16 +36,16 @@ public class WxUserController {
      */
     @GetMapping("/index")
     @RequiresPermissions("wxuser:user:index")
-    public String index(Model model, WxUser user) {
+    public String index(Model model, TUser user) {
 
         // 创建匹配器，进行动态查询匹配
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withMatcher("remarks", match -> match.contains())
                 .withMatcher("nickName", match -> match.contains());
-
+        user.setStatus(null);
         // 获取数据列表
-        Example<WxUser> example = Example.of(user, matcher);
-        Page<WxUser> list = userService.getPageList(example);
+        Example<TUser> example = Example.of(user, matcher);
+        Page<TUser> list = userService.getPageList(example);
 
         // 封装数据
         model.addAttribute("list", list.getContent());
@@ -67,7 +67,7 @@ public class WxUserController {
      */
     @GetMapping("/edit/{id}")
     @RequiresPermissions("wxuser:user:edit")
-    public String toEdit(@PathVariable("id") WxUser user, Model model) {
+    public String toEdit(@PathVariable("id") TUser user, Model model) {
         model.addAttribute("user", user);
         return "/wxuser/user/add";
     }
@@ -79,10 +79,10 @@ public class WxUserController {
     @PostMapping({"/add","/edit"})
     @RequiresPermissions({"wxuser:user:add","wxuser:user:edit"})
     @ResponseBody
-    public ResultVo save(@Validated UserValid valid, WxUser user) {
+    public ResultVo save(@Validated UserValid valid, TUser user) {
         // 复制保留无需修改的数据
         if (user.getId() != null) {
-            WxUser beUser = userService.getById(user.getId());
+            TUser beUser = userService.getById(user.getId());
             EntityBeanUtil.copyProperties(beUser, user);
         }
 
@@ -96,7 +96,7 @@ public class WxUserController {
      */
     @GetMapping("/detail/{id}")
     @RequiresPermissions("wxuser:user:detail")
-    public String toDetail(@PathVariable("id") WxUser user, Model model) {
+    public String toDetail(@PathVariable("id") TUser user, Model model) {
         model.addAttribute("user",user);
         return "/wxuser/user/detail";
     }

@@ -27,7 +27,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class WxUser implements Serializable {
+public class TUser implements Serializable {
     // 主键ID
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

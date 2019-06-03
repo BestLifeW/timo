@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.linln.common.config.WxConfig;
 import com.linln.common.enums.StatusEnum;
 import com.linln.common.utils.CommonUtil;
-import com.linln.modules.wxuser.domain.WxUser;
+import com.linln.modules.wxuser.domain.TUser;
 import com.linln.modules.wxuser.service.WxUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -46,7 +46,7 @@ public class WxController {
                         System.out.println(openid);
                         Integer integer = wxUserService.countByOpenId(openid);
                         if (!(integer>0)){
-                            WxUser build = WxUser.builder()
+                            TUser build = TUser.builder()
                                     .openId(openid).city(city)
                                     .country(country).sex(sex)
                                     .nickName(nickname).province(province)

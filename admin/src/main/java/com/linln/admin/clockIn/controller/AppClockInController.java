@@ -7,8 +7,11 @@ import com.linln.common.utils.DateUtil;
 import com.linln.common.utils.ResultVoUtil;
 import com.linln.common.vo.ResultVo;
 import com.linln.modules.ClockIn.domain.ClockIn;
+import com.linln.modules.ClockIn.domain.ClockinVO;
 import com.linln.modules.ClockIn.service.ClockInService;
-import com.linln.modules.wxuser.domain.WxUser;
+import com.linln.modules.activity.domain.Activity;
+import com.linln.modules.activity.service.ActivityService;
+import com.linln.modules.wxuser.domain.TUser;
 import com.linln.modules.wxuser.service.WxUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @RestController
@@ -35,6 +40,8 @@ public class AppClockInController {
     @Autowired
     private WxUserService wxUserService;
 
+    @Autowired
+    private ActivityService activityService;
     @GetMapping("/todayisclockin/{activityId}/{openId}")
     public ResultVo todayisclockin (@PathVariable(value = "activityId") Long activityId,@PathVariable(value = "openId") String openId){
         ClockIn clockIn = clockInService.checkTodayIsClockIn(activityId, openId, DateUtil.getToday());
@@ -53,6 +60,12 @@ public class AppClockInController {
         if (clockIn!=null){
             return ResultVoUtil.error("今天已经打卡");
         }
+        Activity activity = activityService.getById(activityId);
+        Date endDate = activity.getEndDate();
+        if (System.currentTimeMillis()>endDate.getTime()){
+            return ResultVoUtil.error("活动已过期");
+        }
+        //判断是否过期
         if (!file.isEmpty()) {
             log.info("成功获取照片");
             String fileName = openId+"_"+activityId+"_";
@@ -80,13 +93,13 @@ public class AppClockInController {
                     file.transferTo(new File(path));
                     log.info("文件成功上传到指定目录下");
 
-                    WxUser wxUserByOpenId = wxUserService.getWxUserByOpenId(openId);
+                    TUser tUserByOpenId = wxUserService.getWxUserByOpenId(openId);
                     //保存数据
                     ClockIn build = ClockIn.builder().activityId(activityId).openId(openId)
                             .clockInUrl(filePath).createDate(new Date())
                             .updateDate(new Date()).status(StatusEnum.OK.getCode())
                             .clockStatus(ClockInEnum.REVIEW.getStatus())
-                            .nickName(wxUserByOpenId==null?null:wxUserByOpenId.getNickName())
+                            .nickName(tUserByOpenId ==null?null: tUserByOpenId.getNickName())
                             .build();
                     clockInService.save(build);
                 } else {
@@ -103,6 +116,12 @@ public class AppClockInController {
         }
         return ResultVoUtil.success("签到成功");
     }
+    @GetMapping("getAll/{openId}")
+    public ResultVo getAllByOpenId(@PathVariable("openId") String openId){
+        Stream<ClockinVO> limit = clockInService.getAllByOpenId(openId).stream().limit(30);
+        return ResultVoUtil.success(limit.collect(Collectors.toList()));
+    }
+
 }
 
 

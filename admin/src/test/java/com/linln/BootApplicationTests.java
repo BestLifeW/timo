@@ -1,7 +1,7 @@
 package com.linln;
 
 import com.linln.modules.activity.service.ActivityService;
-import com.linln.modules.wxuser.domain.WxUser;
+import com.linln.modules.wxuser.domain.TUser;
 import com.linln.modules.wxuser.repository.WxUserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +22,7 @@ public class BootApplicationTests {
     @Test
     public void contextLoads() {
 
-        wxUserRepository.save( WxUser.builder().build());
+        wxUserRepository.save( TUser.builder().build());
     }
 
 }

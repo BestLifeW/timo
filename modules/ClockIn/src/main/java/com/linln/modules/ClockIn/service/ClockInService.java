@@ -2,6 +2,7 @@ package com.linln.modules.ClockIn.service;
 
 import com.linln.common.enums.StatusEnum;
 import com.linln.modules.ClockIn.domain.ClockIn;
+import com.linln.modules.ClockIn.domain.ClockinVO;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,4 +47,6 @@ public interface ClockInService {
      * @return
      */
     ClockIn checkTodayIsClockIn(Long activityId,String openId,String date);
+
+    List<ClockinVO> getAllByOpenId(String openId);
 }
