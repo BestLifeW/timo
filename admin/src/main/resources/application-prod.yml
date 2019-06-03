@@ -9,7 +9,7 @@ project:
     remember-me-timeout: 7                    #cookie记住登录信息时间，默认7天（天）
     global-session-timeout: 1800              #Session会话超时时间，默认30分钟（秒）
   upload:
-    file-path: /home/activity/upload                       #文件上传路径，默认在项目根目录upload下
+    file-path: /home/activity/upload/                       #文件上传路径，默认在项目根目录upload下
     static-path: /upload/**
     clockin-path: /clockin/         #上传文件静态访问路径
 
