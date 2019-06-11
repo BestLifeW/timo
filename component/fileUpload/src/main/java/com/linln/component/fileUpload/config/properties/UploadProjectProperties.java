@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "project.upload")
 public class UploadProjectProperties {
     // 上传文件路径
+
     private String filePath;
     // 上传文件静态访问路径
     private String staticPath = "/upload/**";

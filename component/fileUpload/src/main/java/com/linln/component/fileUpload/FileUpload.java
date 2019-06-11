@@ -6,6 +6,7 @@ import com.linln.common.utils.ToolUtil;
 import com.linln.component.fileUpload.config.properties.UploadProjectProperties;
 import com.linln.component.fileUpload.enums.UploadResultEnum;
 import com.linln.modules.system.domain.Upload;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -27,6 +28,7 @@ import java.util.UUID;
  * @author 小懒虫
  * @date 2018/11/4
  */
+@Slf4j
 public class FileUpload {
 
     /**
@@ -61,6 +63,7 @@ public class FileUpload {
      */
     public static String getUploadPath(){
         UploadProjectProperties properties = SpringContextUtil.getBean(UploadProjectProperties.class);
+        log.info("上传文件路径：{}",properties);
         return properties.getFilePath();
     }
 
@@ -116,7 +119,9 @@ public class FileUpload {
         byte[] buffer = new byte[4096];
         MessageDigest md5 = MessageDigest.getInstance("MD5");
         MessageDigest sha1 = MessageDigest.getInstance("SHA1");
-        try (OutputStream fos = Files.newOutputStream(getDestFile(upload).toPath()); InputStream fis = multipartFile.getInputStream()) {
+        log.info("Activity文件保存路径：{}",getDestFile(upload).toPath());
+        try (OutputStream fos = Files.newOutputStream(getDestFile(upload).toPath());
+             InputStream fis = multipartFile.getInputStream()) {
             int len = 0;
             while ((len = fis.read(buffer)) != -1) {
                 fos.write(buffer, 0, len);
