@@ -8,4 +8,6 @@ import com.linln.modules.system.repository.BaseRepository;
  * @date 2019/05/08
  */
 public interface ActivityRepository extends BaseRepository<Activity, Long> {
+
+    Integer countAllByIsPublish(Integer status);
 }

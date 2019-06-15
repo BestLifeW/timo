@@ -19,4 +19,7 @@ public interface SignUpRepository extends BaseRepository<SignUp, Long> {
     Integer countByActivityId(Long activityId);
 
     Integer countByActivityIdAndOpenIdAndStatus(Long activityId,String openId,String status);
+
+    Integer countDistinctByOpenId(String openID);
+
 }

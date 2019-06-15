@@ -19,4 +19,5 @@ public interface ClockInRepository extends BaseRepository<ClockIn, Long> {
 
     List<ClockIn> getAllByOpenIdOrderByCreateDateDesc(String openId);
 
+    Integer countAllByOpenIdAndClockStatus(String openId ,Integer status);
 }

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author lovec
@@ -45,4 +46,6 @@ public interface WxUserService {
 
     TUser getWxUserByOpenId(String openId);
 
+
+    Map<String,String> getUserInfo(String openId);
 }

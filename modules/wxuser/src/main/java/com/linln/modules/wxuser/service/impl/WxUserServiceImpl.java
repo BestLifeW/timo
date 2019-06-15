@@ -1,7 +1,12 @@
 package com.linln.modules.wxuser.service.impl;
 
+import com.google.common.collect.Maps;
 import com.linln.common.data.PageSort;
+import com.linln.common.enums.ClockInEnum;
 import com.linln.common.enums.StatusEnum;
+import com.linln.modules.ClockIn.repository.ClockInRepository;
+import com.linln.modules.activity.repository.ActivityRepository;
+import com.linln.modules.signup.repository.SignUpRepository;
 import com.linln.modules.wxuser.domain.TUser;
 import com.linln.modules.wxuser.repository.WxUserRepository;
 import com.linln.modules.wxuser.service.WxUserService;
@@ -12,7 +17,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author lovec
@@ -24,6 +31,14 @@ public class WxUserServiceImpl implements WxUserService {
     @Autowired
     private WxUserRepository userRepository;
 
+    @Autowired
+    private SignUpRepository signUpRepository;
+
+    @Autowired
+    private ActivityRepository activityRepository;
+
+    @Autowired
+    private ClockInRepository clockInRepository;
     /**
      * 根据ID查询数据
      * @param id 主键ID
@@ -73,5 +88,18 @@ public class WxUserServiceImpl implements WxUserService {
     public TUser getWxUserByOpenId(String openId) {
         return userRepository.getWxUserByOpenId(openId);
     }
+
+    @Override
+    public Map<String, String> getUserInfo(String openId) {
+        HashMap<String,String> resMap = Maps.newHashMap();
+        Integer allActivity = activityRepository.countAllByIsPublish(1);
+        Integer signCount = signUpRepository.countDistinctByOpenId(openId);
+        Integer allClockIn = clockInRepository.countAllByOpenIdAndClockStatus(openId, ClockInEnum.PASS.getStatus());
+        resMap.put("signCount",null==signCount?"0":signCount.toString());
+        resMap.put("allClockIn",null==allClockIn?"0":allClockIn.toString());
+        resMap.put("allActivity",null==allActivity?"0":allActivity.toString());
+        return resMap;
+    }
+
 
 }
