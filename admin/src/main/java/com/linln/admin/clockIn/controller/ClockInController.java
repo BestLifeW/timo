@@ -9,8 +9,10 @@ import com.linln.common.vo.ResultVo;
 import com.linln.modules.ClockIn.domain.ClockIn;
 import com.linln.modules.ClockIn.service.ClockInService;
 import com.linln.modules.wxuser.service.WxUserService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
@@ -28,6 +30,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/ClockIn/clockIn")
+@Slf4j
 public class ClockInController {
 
     @Autowired
@@ -36,6 +39,8 @@ public class ClockInController {
     @Autowired
     private WxUserService userService;
 
+    @Value("${localhost}")
+    public  String localhost;
     /**
      * 列表页面
      */
@@ -71,7 +76,7 @@ public class ClockInController {
     @GetMapping("/edit/{id}")
     @RequiresPermissions("clockIn:clockIn:edit")
     public String toEdit(@PathVariable("id") ClockIn clockIn, Model model, HttpServletRequest request) {
-        String s = request.getScheme()+"://"+request.getServerName() + ":" + request.getServerPort() + "/upload";
+        String s = localhost+"/upload";
         clockIn.setClockInUrl(s+clockIn.getClockInUrl());
         model.addAttribute("clockIn", clockIn);
         return "/ClockIn/clockIn/add";
@@ -103,7 +108,8 @@ public class ClockInController {
     @GetMapping("/detail/{id}")
     @RequiresPermissions("clockIn:clockIn:detail")
     public String toDetail(@PathVariable("id") ClockIn clockIn, Model model,HttpServletRequest request) {
-        String s = request.getScheme()+"://"+request.getServerName() + ":" + request.getServerPort() + "/upload";
+        String s = localhost+"/upload";
+
         clockIn.setClockInUrl(s+clockIn.getClockInUrl());
         model.addAttribute("clockIn",clockIn);
         return "/ClockIn/clockIn/detail";
