@@ -51,8 +51,8 @@ spring:
       max-request-size: 10MB
 wx:
   config:
-    APPID: wx15afc1a4f274f15c
-    APPSECRECT: 3953701699cbbe6694209a205f1f5276
+    APPID: wx37db820c778fe216
+    APPSECRECT: 7931c0ec85fec0c62d6216cb26c666b4
     GRANTTYPE:
 
 
