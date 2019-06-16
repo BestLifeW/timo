@@ -6,6 +6,7 @@ import com.linln.common.enums.StatusEnum;
 import com.linln.common.utils.CommonUtil;
 import com.linln.modules.wxuser.domain.TUser;
 import com.linln.modules.wxuser.service.WxUserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.util.StringUtils;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("app/wx")
+@Slf4j
 public class WxController {
 
     @Autowired
@@ -38,6 +40,7 @@ public class WxController {
                 String requestUrl = WX_URL.replace("APPID", wxConfig.APPID).replace("SECRET", wxConfig.APPSECRECT)
                         .replace("JSCODE", code).replace("authorization_code", wxConfig.GRANTTYPE);
                 JSONObject jsonObject = CommonUtil.httpsRequest(requestUrl, "GET", null);
+                log.info("接收到微信回调{}",jsonObject.toJSONString());
                 if (jsonObject != null) {
                     try {
                         // 业务操作
@@ -58,7 +61,6 @@ public class WxController {
                         }
                         return openid;
                     } catch (Exception e) {
-                        System.out.println("业务操作失败");
                         e.printStackTrace();
                     }
                 } else {
