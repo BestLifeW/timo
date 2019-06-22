@@ -1,6 +1,7 @@
 package com.linln.admin.activity.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.binarywang.java.emoji.EmojiConverter;
 import com.linln.common.config.WxConfig;
 import com.linln.common.enums.StatusEnum;
 import com.linln.common.utils.CommonUtil;
@@ -25,6 +26,8 @@ public class WxController {
 
     @Autowired
     private WxUserService  wxUserService;
+    //转化emoji工具类
+    private static EmojiConverter emojiConverter = EmojiConverter.getInstance();
 
 
     @RequestMapping(value = "/getOpenId", method = RequestMethod.GET) // 获取用户信息
@@ -45,18 +48,16 @@ public class WxController {
                     try {
                         // 业务操作
                         String openid = jsonObject.getString("openid");
-                        System.out.println(jsonObject);
-                        System.out.println(openid);
                         Integer integer = wxUserService.countByOpenId(openid);
                         if (!(integer>0)){
+                            String toAlias = emojiConverter.toAlias(nickname);
                             TUser build = TUser.builder()
                                     .openId(openid).city(city)
                                     .country(country).sex(sex)
-                                    .nickName(nickname).province(province)
+                                    .nickName(toAlias).province(province)
                                     .userHeadUrl(headurl)
                                     .status(StatusEnum.OK.getCode())
                                     .build();
-                            System.out.println(build);
                             wxUserService.save(build);
                         }
                         return openid;
@@ -64,7 +65,7 @@ public class WxController {
                         e.printStackTrace();
                     }
                 } else {
-                    System.out.println("code无效");
+                    log.info("接收到的Code无效{}",requestUrl);
                 }
             }
         } catch (Exception e) {
